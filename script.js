@@ -35,17 +35,43 @@ function playRockPaperScissors(playerSelection,computerSelection) {
       case "PaperRock":
       case "ScissorsPaper":
         output = `You win! ${playerSelection} beats ${computerSelection}`;
+        countHumanScore += 1;
         break;
       case "ScissorsRock":
       case "RockPaper":
       case "PaperScissors":
         output = `You Lose! ${computerSelection} beats ${playerSelection}`;
+        countComputerScore += 1;
         break;
     }
   }
-  return output
+  return output;
 }
 
-let currentComputerChoice = getComputerChoice();
-console.log(currentComputerChoice)
-console.log(playRockPaperScissors("rock",currentComputerChoice));
+function playARound() {
+  let playerSelection = prompt("Rock, Paper, or Scissors?");
+  let computerSelection = getComputerChoice();
+  let round = playRockPaperScissors(playerSelection,computerSelection);
+  console.log(round);
+  console.log(`Current Score: You(${countHumanScore}) vs Frank(${countComputerScore})`);
+}
+
+function checkIfEndOfGame() {
+  if(countComputerScore == 5){
+    console.log("Frank has won")
+  } else if(countHumanScore == 5){
+    console.log("You have won")
+  } else {
+    playGame();
+  }
+}
+
+function playGame() {
+  playARound();
+  checkIfEndOfGame();
+}
+
+let countComputerScore = 0;
+let countHumanScore = 0;
+
+playGame();
