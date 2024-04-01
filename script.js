@@ -71,14 +71,14 @@ function endOfGameResults(result) {
   endOfGameResult.textContent = result;
   resultsContainer.appendChild(document.createElement("br"));
   resultsContainer.appendChild(endOfGameResult);
-  buttonContainer.removeEventListener("click", (e) => {
-    playARound(e.target.textContent);
-  });
+  buttonContainer.removeEventListener("click", playRoundListener);
+}
+
+const playRoundListener = (e) => {
+  playARound(e.target.textContent);
 }
 
 let buttonContainer = document.querySelector("#buttonContainer");
-buttonContainer.addEventListener("click", (e) => {
-  playARound(e.target.textContent);
-});
+buttonContainer.addEventListener("click", playRoundListener);
 
 let resultsContainer = document.querySelector("#resultsContainer");
