@@ -47,22 +47,38 @@ function playARound(choice) {
   let playerSelection = choice;
   let computerSelection = getComputerChoice();
   let round = playRockPaperScissors(playerSelection,computerSelection);
-  console.log(round);
-  console.log(`Current Score: You(${countHumanScore}) vs Frank(${countComputerScore})`);
+  resultsContainer.innerHTML = "";
+  let roundResult = document.createElement("p");
+  roundResult.textContent = round;
+  let currentScore = document.createElement("p");
+  currentScore.textContent = `Current Score: You(${countHumanScore}) vs Frank(${countComputerScore})`;
+  resultsContainer.appendChild(roundResult);
+  resultsContainer.appendChild(document.createElement("br"));
+  resultsContainer.appendChild(currentScore);
+  checkIfEndOfGame();
 }
 
 function checkIfEndOfGame() {
   if(countComputerScore == 5){
-    console.log("Frank has won")
+    endOfGameResults("Frank has won");
   } else if(countHumanScore == 5){
-    console.log("You have won")
-  } else {
-    playGame();
+    endOfGameResults("You have won");
   }
+}
+
+function endOfGameResults(result) {
+  let endOfGameResult = document.createElement("p");
+  endOfGameResult.textContent = result;
+  resultsContainer.appendChild(document.createElement("br"));
+  resultsContainer.appendChild(endOfGameResult);
+  buttonContainer.removeEventListener("click", (e) => {
+    playARound(e.target.textContent);
+  });
 }
 
 let buttonContainer = document.querySelector("#buttonContainer");
 buttonContainer.addEventListener("click", (e) => {
-  let selectedButton = e.target.textContent;
-  playARound(selectedButton);
+  playARound(e.target.textContent);
 });
+
+let resultsContainer = document.querySelector("#resultsContainer");
