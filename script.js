@@ -1,3 +1,6 @@
+let countComputerScore = 0;
+let countHumanScore = 0;
+
 function getComputerChoice() {
   let randomNumber = Math.floor(Math.random()*3);
   let output;
@@ -15,16 +18,8 @@ function getComputerChoice() {
   return output;
 }
 
-function upperCaseFirstLetter(word) {
-  let wordLength = word.length;
-  let firstLetter = word.slice(0,1).toUpperCase();
-  let restOfWord = word.slice(1,wordLength).toLowerCase();
-  return firstLetter + restOfWord;
-}
-
 function playRockPaperScissors(playerSelection,computerSelection) {
   // Convert input into acceptable format
-  playerSelection = upperCaseFirstLetter(playerSelection);
   //compare if the input is the same as the computer input
   let output = "";
   if(playerSelection == computerSelection){
@@ -48,8 +43,8 @@ function playRockPaperScissors(playerSelection,computerSelection) {
   return output;
 }
 
-function playARound() {
-  let playerSelection = prompt("Rock, Paper, or Scissors?");
+function playARound(choice) {
+  let playerSelection = choice;
   let computerSelection = getComputerChoice();
   let round = playRockPaperScissors(playerSelection,computerSelection);
   console.log(round);
@@ -66,12 +61,8 @@ function checkIfEndOfGame() {
   }
 }
 
-function playGame() {
-  playARound();
-  checkIfEndOfGame();
-}
-
-let countComputerScore = 0;
-let countHumanScore = 0;
-
-playGame();
+let buttonContainer = document.querySelector("#buttonContainer");
+buttonContainer.addEventListener("click", (e) => {
+  let selectedButton = e.target.textContent;
+  playARound(selectedButton);
+});
